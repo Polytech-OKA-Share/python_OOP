@@ -1,0 +1,31 @@
+VSCodeのターミナルでPythonファイルを実行しようとすると下記のエラー
+
+PS C:\Users\<YourUserName>\path\to\project> .\.venv\Scripts\Activate.ps1
+.\.venv\Scripts\Activate.ps1 : このシステムではスクリプトの実行が無効になっているため、
+ファイル C:\Users\<YourUserName>\path\to\project\.venv\Scripts\Activate.ps1 を読み込むことができません。
+詳細については、「about_Execution_Policies」
+(https://go.microsoft.com/fwlink/?LinkID=135170) を参照してください。
+発生場所 行:1 文字:1
++ .\.venv\Scripts\Activate.ps1
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : セキュリティ エラー: (:) [], PSSecurityException
+    + FullyQualifiedErrorId : UnauthorizedAccess
+
+
+エラーの恒久的な解消には次の設定を行う。
+
+１　Ctrl + Shift + P　で出てくる検索窓に Preference: Open Workspace Settings (JSON) と入力
+　　日本語なら、基本設定: ワークスペース設定を開く (JSON)
+
+
+２　JSONファイルを下記のように編集
+
+{
+
+    "terminal.integrated.env.windows": {
+    "PSExecutionPolicyPreference": "RemoteSigned"
+    }
+}
+
+
+３　VSCodeを再起動するとエラーが解消される
